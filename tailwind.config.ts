@@ -12,8 +12,9 @@ const config: Config = {
   theme: {
     extend: {
       colors:{
-        'azul':'#0C2A9C',
-        'azul-30': 'rgba(12, 42, 156, 0.3)'
+        'azul':'#202140',
+        'azul-30': 'rgba(12, 42, 156, 0.3)',
+        'secondary': '#0C2A9C'
       }
     },
   },

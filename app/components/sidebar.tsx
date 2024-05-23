@@ -28,7 +28,7 @@ export default function Sidebar(){
 
     return(
         <>
-            <div className="w-[260px] bg-white lg:min-h-screen shadow-[rgba(0,_0,_0,_0.35)_0px_8px_30px] max-lg:hidden">
+            <div className="fixed w-[260px] bg-white lg:min-h-screen shadow-[rgba(0,_0,_0,_0.35)_0px_8px_30px] z-[999] max-lg:hidden">
                 <div className="flex flex-col items-center py-8 gap-2">
                     <Image src={logo} width={120} alt="logo"/>
                     <span className="text-[25px] text-azul font-bold italic">App Desafio</span>

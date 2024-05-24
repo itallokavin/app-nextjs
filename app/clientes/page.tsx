@@ -6,6 +6,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { useToast } from '@chakra-ui/react'
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import TableClientes from "../components/table";
 
 export default async function Clientes(){
     
@@ -33,7 +34,7 @@ export default async function Clientes(){
     return(
         <ChakraProvider>
             <Layout>
-            <p className="text-center text-2xl py-32">Clientes</p>
+                <TableClientes />
             </Layout>
         </ChakraProvider>
     )

@@ -10,9 +10,7 @@ export const handleFormSubmit = async (data:FormProps) => {
             data_nascimento: data.cliente.data_nascimento
         });
 
-        const cliente_id = cliente.data.data.id
-        console.log(cliente_id)
-        
+        const cliente_id = cliente.data.data.id        
 
         const telefone = await axios.post('http://localhost:8000/telefones', {
             cliente_id : cliente_id,

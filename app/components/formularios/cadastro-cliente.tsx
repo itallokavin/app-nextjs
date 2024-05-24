@@ -3,13 +3,13 @@
 import React from "react";
 import Link from "next/link";
 import { Button } from "@nextui-org/react";
-import {useCep} from './clientes/useCep';
-import {handleFormSubmit} from './clientes/create'
+import {useCep} from '../clientes/useCep';
+import {handleFormSubmit} from '../clientes/create'
 
 export default function FormularioCliente(){
     const {errors, handleSubmit, register} = useCep();
     return(
-        <form onSubmit={handleSubmit(handleFormSubmit)}>
+        <form onSubmit={handleSubmit(handleFormSubmit)} className="mt-6">
             <div className="bg-white px-6 card rounded-md">
                 <div className="bg-azul text-white p-6 rounded-md relative bottom-6 ">
                     <h4 className="text-[18px]">Informações Pessoais</h4>
@@ -48,7 +48,7 @@ export default function FormularioCliente(){
                         <div>
                             <div className="flex flex-col">
                                 <label className="text-xs">Data de Nascimento</label>
-                                <input type="text" {...register('cliente.data_nascimento')} className="border-b-2 outline-none py-1"/>
+                                <input type="text" {...register('cliente.data_nascimento')} placeholder="YYYY/MM/DD" className="border-b-2 outline-none py-1"/>
                             </div>
                             {errors.cliente?.data_nascimento?.message && (
                                 <p className="text-xs text-danger mt-1">{errors.cliente?.data_nascimento?.message}</p>

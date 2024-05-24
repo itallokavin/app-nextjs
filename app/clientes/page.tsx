@@ -16,11 +16,35 @@ export default async function Clientes(){
     
     useEffect(() => {
         
-        const cliente = searchParams.get('cliente_cadastrado')
+        const cadastrado = searchParams.get('cliente_cadastrado')
+        const atualizado = searchParams.get('atualizado')
+        const excluido = searchParams.get('excluido')
         
-        if(cliente == 'true'){
+        if(cadastrado == 'true'){
             toast({
                 title: 'Cliente Cadastrado',
+                status: 'success',
+                duration: 3000,
+                position: 'bottom-left',
+                isClosable: true,
+              })
+            router.replace('/clientes', undefined);
+        }
+
+        if(atualizado == 'true'){
+            toast({
+                title: 'Cliente Atualizado',
+                status: 'success',
+                duration: 3000,
+                position: 'bottom-left',
+                isClosable: true,
+              })
+            router.replace('/clientes', undefined);
+        }
+
+        if(excluido == 'true'){
+            toast({
+                title: 'Cliente Excluído',
                 status: 'success',
                 duration: 3000,
                 position: 'bottom-left',

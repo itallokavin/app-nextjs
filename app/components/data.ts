@@ -7,4 +7,14 @@ const fetchClientes = async () => {
     return data;
 }
 
-export default fetchClientes;
+const getClientes = async () => {
+    try{
+        const clientes = await fetchClientes();
+        return clientes;
+    }
+    catch(error){
+        console.log('Erro na request de clientes')
+    }
+}
+
+export default getClientes;

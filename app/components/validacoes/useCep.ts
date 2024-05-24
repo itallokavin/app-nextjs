@@ -43,5 +43,5 @@ export const useCep = () => {
         }
     },[fetchCep, setValue, cep])
 
-    return {handleSubmit, errors, register}
+    return {handleSubmit, errors, register, setValue}
 }

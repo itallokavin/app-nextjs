@@ -1,3 +1,5 @@
+'use client'
+
 import React, { Children } from "react"
 import Sidebar from "../components/sidebar"
 import NavBar from "../components/navbar";

@@ -34,33 +34,3 @@ export interface Endereco {
     clienteId: number;
 }
 
-export type ClientAtualizar = {
-    cliente: {
-        nome: string;
-        sobrenome: string;
-        email: string;
-        data_nascimento: string;
-    };
-    telefone: {
-        numero: string;
-    };
-    endereco: {
-        cep: string;
-        logradouro: string;
-        numero: string;
-        bairro: string;
-        cidade: string;
-        estado: string;
-    };
-    cartao: {
-        numero_cartao: string,
-        validade_cartao: string,
-        cvv_cartao: string
-    },
-    cartaodois?: {
-        numero_cartao: string,
-        validade_cartao: string,
-        cvv_cartao: string
-    }
-}
-

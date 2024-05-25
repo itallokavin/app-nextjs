@@ -7,18 +7,17 @@ import {useCep} from '../validacoes/useCep';
 import {handleFormUpdate} from '../validacoes/update'
 import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
+import { GoTrash } from "react-icons/go";
 
 export default function AtualizarCliente(){
     const router = useRouter();
     const searchParams = useSearchParams()
     const cliente_id = searchParams.get('id')
-
-    const [addCartao, setAddCartao] = useState(false);
-    const toggleAddCartao = () => {setAddCartao(!addCartao)};
+    const [cartao_id, setCartao_id] = useState()
 
     const {errors, handleSubmit, register, setValue} = useCep();
 
-    const fetchCliente = async (cliente_id) => {
+    const fetchCliente = async (cliente_id:any) => {
         try{
             const responseCliente = await axios.get(`http://localhost:8000/clientes/${cliente_id}`)
             const cliente = responseCliente.data.data;
@@ -58,13 +57,13 @@ export default function AtualizarCliente(){
         }
 
         try{
-            const responseCartao = await axios.get(`http://localhost:8000/cartao/${cliente_id}`)
+            const responseCartao = await axios.get(`http://localhost:8000/cartao/clientes/${cliente_id}`)
             const cartao = responseCartao.data.data;
-            console.log(cartao)
             if(cartao.length > 0 ){
-                setValue('cartao.numero', 'XXXXXXXXXXXXXXXX')
+                setValue('cartao.numero', cartao[0].numero_cartao)
                 setValue('cartao.validade', cartao[0].validade_cartao)
                 setValue('cartao.cvv', cartao[0].cvv_cartao)
+                setCartao_id(cartao[0].id)
             }            
         }
         catch(error){
@@ -82,28 +81,34 @@ export default function AtualizarCliente(){
         
     },[searchParams, cliente_id, router])
     
-    const updateSubmit = async (data) => {
-        console.log(data)
-        //    const formData = {
-    //         cliente_id: Number(cliente_id),
-    //         cliente: data.cliente,
-    //         telefone:{
-    //             cliente_id: Number(cliente_id),
-    //             ...data.telefone
-    //         },
-    //         endereco:{
-    //             cliente_id: Number(cliente_id),
-    //             ...data.endereco
-    //         },
-    //         cartao: {
-    //             cliente_id: Number(cliente_id),
-    //             ...data.cartao
-    //         }
-    //    }
-    //    const result = await handleFormUpdate(formData)
-    //    if(result == true){
-    //     router.push('/clientes?atualizado=true')
-    // }
+    const updateSubmit = async (data:any) => {
+        const formData = {
+            cliente_id: Number(cliente_id),
+            cartao_id: Number(cartao_id),
+            cliente: data.cliente,
+            telefone:{
+                cliente_id: Number(cliente_id),
+                ...data.telefone
+            },
+            endereco:{
+                cliente_id: Number(cliente_id),
+                ...data.endereco
+            },
+            cartao: {
+                cliente_id: Number(cliente_id),
+                ...data.cartao
+            }
+        }
+
+        const result = await handleFormUpdate(formData)
+        if(result == true){
+            router.push('/clientes?atualizado=true')
+        }
+    }
+
+    const handleDeleteCartao = async () => {
+        const response = await axios.delete(`http://localhost:8000/cartao/${cartao_id}`);
+        router.push('/clientes?cartao_excluido=true')
     }
 
     return(
@@ -265,6 +270,11 @@ export default function AtualizarCliente(){
                             )}
                         </div>
                     </div>
+                    {cartao_id && 
+                        <div className="flex justify-center">
+                            <Button className="text-white bg-red-600" onClick={handleDeleteCartao}><GoTrash />Excluir Cartão</Button>
+                        </div>
+                    }
                 </div>
             </div>
             

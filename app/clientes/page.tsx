@@ -1,12 +1,13 @@
 'use client'
 
-import React, { useEffect } from "react"
+import React, { Suspense, useEffect } from "react"
 import Layout from "../components/layout"
 import { ChakraProvider } from '@chakra-ui/react';
 import { useToast } from '@chakra-ui/react'
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import TableClientes from "../components/table";
+import { Spinner } from "@nextui-org/react";
 
 export default async function Clientes(){
     
@@ -19,6 +20,7 @@ export default async function Clientes(){
         const cadastrado = searchParams.get('cliente_cadastrado')
         const atualizado = searchParams.get('atualizado')
         const excluido = searchParams.get('excluido')
+        const cartaoexcluido = searchParams.get('cartao_excluido')
         
         if(cadastrado == 'true'){
             toast({
@@ -52,14 +54,27 @@ export default async function Clientes(){
               })
             router.replace('/clientes', undefined);
         }
+
+        if(cartaoexcluido == 'true'){
+            toast({
+                title: 'Cartão Excluído',
+                status: 'success',
+                duration: 3000,
+                position: 'bottom-left',
+                isClosable: true,
+              })
+            router.replace('/clientes', undefined);
+        }
         
     },[])
 
     return(
-        <ChakraProvider>
-            <Layout>
-                <TableClientes />
-            </Layout>
-        </ChakraProvider>
+        <Suspense>
+            <ChakraProvider>
+                <Layout>
+                    <TableClientes />
+                </Layout>
+            </ChakraProvider>
+        </Suspense>
     )
 }
